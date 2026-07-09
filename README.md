@@ -1,5 +1,4 @@
-# Internship Management Portal
-
+ # Internship Portal - GitHub Cloud Version
 A lightweight, high-performance, and fully accessible multi-page web application built entirely using **Pure Semantic HTML5**, violating zero layout design guidelines (No layout `<div>` tags utilized).
 
 ## 🚀 Project Features
