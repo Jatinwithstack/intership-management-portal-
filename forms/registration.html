@@ -24,8 +24,153 @@
     </nav>
     <main>
         <section>
-            <h2>Form Page</h2>
-            <p>Form fields will be added here in Challenge 3.</p>
+            <h2>Massive Intern Registration Form</h2>
+            <p>Please fill out all the details carefully to register for the internship portal.</p>
+
+            <form action="#" method="POST" enctype="multipart/form-data">
+                
+                <!-- FIELDSET 1: Personal Details -->
+                <fieldset>
+                    <legend><strong>Personal Details</strong></legend>
+                    
+                    <p>
+                        <label for="fullname">Full Name:</label>
+                        <input type="text" id="fullname" name="fullname" required placeholder="Enter full name">
+                    </p>
+                    
+                    <p>
+                        <label for="fathername">Father's Name:</label>
+                        <input type="text" id="fathername" name="fathername" required placeholder="Enter father's name">
+                    </p>
+                    
+                    <p>
+                        <label for="mothername">Mother's Name:</label>
+                        <input type="text" id="mothername" name="mothername" required placeholder="Enter mother's name">
+                    </p>
+                    
+                    <p>
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </p>
+                    
+                    <p>
+                        <label>Gender:</label>
+                        <label><input type="radio" name="gender" value="male" required> Male</label>
+                        <label><input type="radio" name="gender" value="female"> Female</label>
+                        <label><input type="radio" name="gender" value="other"> Other</label>
+                    </p>
+                </fieldset>
+
+                <!-- FIELDSET 2: Contact Information -->
+                <fieldset>
+                    <legend><strong>Contact Information</strong></legend>
+                    
+                    <p>
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" name="email" required placeholder="example@mail.com">
+                    </p>
+                    
+                    <p>
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="10-digit mobile number">
+                    </p>
+                    
+                    <p>
+                        <label for="altphone">Alternate Phone:</label>
+                        <input type="tel" id="altphone" name="altphone" placeholder="Alternate mobile number">
+                    </p>
+                    
+                    <p>
+                        <label for="address">Full Address:</label>
+                        <textarea id="address" name="address" rows="3" required placeholder="Enter permanent address"></textarea>
+                    </p>
+                    
+                    <p>
+                        <label for="city">City:</label>
+                        <input type="text" id="city" name="city" required placeholder="Enter City">
+                    </p>
+                    
+                    <p>
+                        <label for="state">State:</label>
+                        <input type="text" id="state" name="state" required placeholder="Enter State">
+                    </p>
+                    
+                    <p>
+                        <label for="country">Country:</label>
+                        <input type="text" id="country" name="country" required value="India">
+                    </p>
+                </fieldset>
+
+                <!-- FIELDSET 3: Academic & Professional Details -->
+                <fieldset>
+                    <legend><strong>Academic & Professional Details</strong></legend>
+                    
+                    <p>
+                        <label for="college">College Name:</label>
+                        <input type="text" id="college" name="college" required placeholder="Enter college/university name">
+                    </p>
+                    
+                    <p>
+                        <label for="branch">Branch / Stream:</label>
+                        <select id="branch" name="branch" required>
+                            <option value="">--Select Branch--</option>
+                            <option value="cse">Computer Science</option>
+                            <option value="it">Information Technology</option>
+                            <option value="ece">Electronics</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </p>
+                    
+                    <p>
+                        <label for="semester">Semester:</label>
+                        <input type="number" id="semester" name="semester" min="1" max="8" required placeholder="e.g., 4">
+                    </p>
+                    
+                    <p>
+                        <label for="skills">Key Skills:</label>
+                        <input type="text" id="skills" name="skills" placeholder="HTML, Git, Java, etc.">
+                    </p>
+                    
+                    <p>
+                        <label for="linkedin">LinkedIn Profile URL:</label>
+                        <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/username">
+                    </p>
+                    
+                    <p>
+                        <label for="github">GitHub Profile URL:</label>
+                        <input type="url" id="github" name="github" placeholder="https://github.com/username">
+                    </p>
+                </fieldset>
+
+                <!-- FIELDSET 4: Document Uploads & Declaration -->
+                <fieldset>
+                    <legend><strong>Documents & Verification</strong></legend>
+                    
+                    <p>
+                        <label for="resume">Upload Resume (PDF only):</label>
+                        <input type="file" id="resume" name="resume" accept=".pdf" required>
+                    </p>
+                    
+                    <p>
+                        <label for="aadhaar">Upload Aadhaar Card:</label>
+                        <input type="file" id="aadhaar" name="aadhaar" accept="image/*,.pdf" required>
+                    </p>
+                    
+                    <p>
+                        <label>
+                            <input type="checkbox" name="declaration" required>
+                            I hereby declare that all the information provided above is true and correct to the best of my knowledge.
+                        </label>
+                    </p>
+                </fieldset>
+
+                <!-- Submit Button -->
+                <p>
+                    <button type="submit">Submit Registration</button>
+                    <button type="reset">Reset Form</button>
+                </p>
+
+            </form>
         </section>
     </main>
     <footer>
