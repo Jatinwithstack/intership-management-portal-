@@ -1,4 +1,4 @@
-# Internship Management Portal
+# Internship Portal - VS Code Local Version
 
 A lightweight, high-performance, and fully accessible multi-page web application built entirely using **Pure Semantic HTML5**, violating zero layout design guidelines (No layout `<div>` tags utilized).
 
