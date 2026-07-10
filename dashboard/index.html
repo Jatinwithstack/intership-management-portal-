@@ -4,28 +4,144 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Internship Management Portal</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+<link rel="stylesheet" href="../css/form.css">
+<link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
 
-    <!-- Header Section -->
-    <header>
-        <h1>Internship Management Portal</h1>
-        <hr>
-    </header>
+    <div class="container">
 
-    <!-- Navigation Section (Saare pages ke links) -->
-    <nav>
+    <div class="sidebar">
+        <h2>IMP</h2>
+
         <ul>
-            <li><a href="index.html">Dashboard</a></li>
-            <li><a href="../forms/registration.html">Student Registration</a></li>
-            <li><a href="../students/student-list.html">Student List</a></li>
-            <li><a href="../reports/attendance.html">Attendance Report</a></li>
-            <li><a href="../forms/task-submission.html">Task Submission</a></li>
-            <li><a href="../reports/performance.html">Performance Report</a></li>
-            <li><a href="../contact.html">Contact Us</a></li>
+            <li>Dashboard</li>
+            <li>Students</li>
+            <li>Tasks</li>
+            <li>Attendance</li>
+            <li>Projects</li>
+            <li>Certificates</li>
+            <li>Reports</li>
+            <li>Settings</li>
+            <li>Logout</li>
         </ul>
-        <hr>
-    </nav>
+    </div>
+
+    <div class="main">
+
+        <div class="navbar">
+    <input type="text" placeholder="Search Students...">
+
+    <div class="profile">
+        <span>🔔</span>
+        <span>👤 Jatin</span>
+    </div>
+</div>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>Total Students</h3>
+                <p>120</p>
+            </div>
+
+            <div class="card">
+                <h3>Active Interns</h3>
+                <p>95</p>
+            </div>
+
+            <div class="card">
+                <h3>Pending Tasks</h3>
+                <p>18</p>
+            </div>
+
+            <div class="card">
+                <h3>Completed Tasks</h3>
+                <p>250</p>
+            </div>
+
+        </div>
+
+    
+
+
+
+<div class="student-table">
+    <h2>Student Management</h2>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Course</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        <tr>
+            <td>Jatin</td>
+            <td>jatin@gmail.com</td>
+            <td>B.Tech CST</td>
+            <td>Active</td>
+            <td>
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Rahul</td>
+            <td>rahul@gmail.com</td>
+            <td>B.Tech CSE</td>
+            <td>Completed</td>
+            <td>
+                <button class="edit-btn">Edit</button>
+                <button class="delete-btn">Delete</button>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+<div class="registration-form">
+    <h2>Student Registration</h2>
+
+    <form>
+        <input type="text" placeholder="Full Name">
+        <input type="email" placeholder="Email">
+        <input type="text" placeholder="Phone Number">
+        <input type="text" placeholder="College Name">
+        <input type="text" placeholder="Branch">
+
+        <button type="submit">Register Student</button>
+    </form>
+</div>
+
+<div class="registration-form">
+
+    <h2>Student Registration</h2>
+
+    <form>
+
+        <input type="text" placeholder="Full Name">
+
+        <input type="email" placeholder="Email">
+
+        <input type="text" placeholder="Phone Number">
+
+        <input type="text" placeholder="College Name">
+
+        <input type="text" placeholder="Branch">
+
+        <button type="submit">Register</button>
+
+    </form>
+
+</div>
 
     <!-- Main Content Section -->
     <main>

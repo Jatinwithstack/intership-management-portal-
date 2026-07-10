@@ -1,0 +1,20 @@
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.navbar input{
+    width:300px;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    font-weight:bold;
+}

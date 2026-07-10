@@ -24,8 +24,39 @@
     </nav>
     <main>
         <section>
-            <h2>Form Page</h2>
-            <p>Form fields will be added here in Challenge 3.</p>
+           <h2>Task Submission Form</h2>
+
+<form action="#" method="POST" enctype="multipart/form-data">
+
+    <p>
+        <label>Student Name:</label><br>
+        <input type="text" name="studentname" required>
+    </p>
+
+    <p>
+        <label>Task Title:</label><br>
+        <input type="text" name="tasktitle" required>
+    </p>
+
+    <p>
+        <label>Task Description:</label><br>
+        <textarea name="description" rows="5" cols="50"></textarea>
+    </p>
+
+    <p>
+        <label>Upload File:</label><br>
+        <input type="file" name="taskfile" required>
+    </p>
+
+    <p>
+        <label>Submission Date:</label><br>
+        <input type="date" name="date" required>
+    </p>
+
+    <button type="submit">Submit Task</button>
+    <button type="reset">Reset</button>
+
+</form>
         </section>
     </main>
     <footer>

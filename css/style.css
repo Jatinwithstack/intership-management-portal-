@@ -1,0 +1,225 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+.container{
+    display:flex;
+}
+
+.sidebar{
+    width:250px;
+    background:#1f2937;
+    color:white;
+    height:100vh;
+    padding:20px;
+}
+
+.sidebar h2{
+    margin-bottom:20px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    padding:12px;
+    cursor:pointer;
+}
+
+.sidebar ul li:hover{
+    background:#374151;
+}
+
+.main{
+    flex:1;
+    background:#f3f4f6;
+}
+
+.navbar{
+    background:white;
+    padding:20px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+
+.cards{
+    display:flex;
+    gap:20px;
+    padding:20px;
+    flex-wrap:wrap;
+}
+
+.card{
+    background:white;
+    width:220px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+}
+
+.card p{
+    font-size:28px;
+    margin-top:10px;
+    color:blue;
+}
+
+.student-table{
+    margin:20px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+table, th, td{
+    border:1px solid #ddd;
+}
+
+th, td{
+    padding:12px;
+    text-align:center;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+}
+
+button{
+    padding:8px 15px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    margin:2px;
+}
+
+button:first-child{
+    background:#22c55e;
+    color:white;
+}
+
+button:last-child{
+    background:#ef4444;
+    color:white;
+}
+
+.registration-form{
+    background:white;
+    margin:20px;
+    padding:20px;
+    border-radius:10px;
+}
+
+.registration-form h2{
+    margin-bottom:15px;
+}
+
+.registration-form input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.registration-form button{
+    width:100%;
+    background:#2563eb;
+    color:white;
+    padding:12px;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.registration-form button:hover{
+    background:#1d4ed8;
+}
+
+.student-table{
+    background:#fff;
+    margin:20px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,.2);
+}
+
+.student-table table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+}
+
+.student-table th,
+.student-table td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+.student-table th{
+    background:#2563eb;
+    color:#fff;
+}
+
+.edit-btn{
+    background:#22c55e;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.delete-btn{
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.registration-form{
+    background:#fff;
+    margin:20px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,.2);
+}
+
+.registration-form h2{
+    margin-bottom:15px;
+}
+
+.registration-form input{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+.registration-form button{
+    width:100%;
+    padding:12px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.registration-form button:hover{
+    background:#1d4ed8;
+}
