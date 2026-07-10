@@ -24,3 +24,4 @@ internship-management-portal/
 │
 ├── contact.html               # Challenge 6: Multimedia Integration (Map, Audio, Video)
 └── README.md                  # Challenge 10: Complete Project Documentation
+dashboard page updated 
