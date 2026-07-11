@@ -26,29 +26,55 @@ body {
     color: var(--text-main);
 }
 
-.container{
-    display:flex;
+.container {
+    display: flex;
+    min-height: 100vh;
 }
 
-.sidebar{
-    width:250px;
-    background:#1f2937;
-    color:white;
-    height:100vh;
-    padding:20px;
+.sidebar {
+    width: 260px;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: all 0.3s ease;
 }
 
-.sidebar h2{
-    margin-bottom:20px;
+.sidebar h2 {
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-left: 8px;
+    letter-spacing: 0.5px;
 }
 
-.sidebar ul{
-    list-style:none;
+.sidebar ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.sidebar ul li{
-    padding:12px;
-    cursor:pointer;
+.sidebar a, .sidebar ul li {
+    color: var(--sidebar-text);
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.sidebar a:hover, .sidebar ul li:hover, .sidebar a.active {
+    background-color: var(--sidebar-hover);
+    color: #ffffff;
 }
 
 .sidebar ul li:hover{
