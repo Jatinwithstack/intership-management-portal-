@@ -408,3 +408,58 @@ button:last-child{
     font-weight: 700;
     color: var(--text-main);
 }
+
+/* Modern Data Table Styles */
+.table-container {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.table-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.table-header h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+custom-table th {
+    background-color: #f8fafc;
+    padding: 14px 24px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+custom-table td {
+    padding: 16px 24px;
+    font-size: 0.9rem;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-color);
+}
+
+custom-table tr:last-child td {
+    border-bottom: none;
+}
+
+custom-table tr:hover {
+    background-color: #f8fafc;
+}
