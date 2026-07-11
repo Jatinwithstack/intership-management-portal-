@@ -1,8 +1,29 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+:root {
+    --primary-color: #2563eb;       /* Professional Modern Blue */
+    --primary-hover: #1d4ed8;       /* Darker Blue for hover states */
+    --sidebar-bg: #0f172a;          /* Sleek Dark Slate BG for sidebar */
+    --sidebar-text: #94a3b8;        /* Soft gray text for sidebar items */
+    --sidebar-hover: #1e293b;       /* Active link background */
+    --body-bg: #f8fafc;             /* Light gray page background */
+    --card-bg: #ffffff;             /* Crisp white card background */
+    --text-main: #1e293b;           /* Dark text for headings */
+    --text-muted: #64748b;          /* Muted gray for small details */
+    --border-color: #e2e8f0;        /* Light elegant borders */
+    --success: #10b981;             /* Green for Active status */
+    --warning: #f59e0b;             /* Orange/Yellow for Pending status */
+}
+
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--body-bg);
+    color: var(--text-main);
 }
 
 .container{
