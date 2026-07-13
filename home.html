@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMP - Internship Management Portal</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-slate-50 font-sans text-slate-900 antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- Navbar -->
+  <nav class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+    <div class="flex items-center space-x-2">
+      <span class="text-2xl font-black tracking-wider text-indigo-600">IMP</span>
+    </div>
+    <div>
+      <a href="dashboard/index.html" class="bg-indigo-600 hover:bg-indigo-750 text-white px-5 py-2.5 rounded-xl font-medium shadow-md shadow-indigo-100 transition duration-200">
+        Launch Dashboard
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <main class="max-w-7xl mx-auto px-6 pt-16 pb-24 text-center lg:pt-28">
+    <h1 class="mx-auto max-w-4xl text-5xl font-extrabold tracking-tight text-slate-900 sm:text-7xl">
+      Manage Internships <span class="text-indigo-600 block sm:inline">Without the Chaos.</span>
+    </h1>
+    
+    <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-500 sm:text-xl">
+      Track student registrations, monitor active tasks, log attendance, and generate completion certificates all from a single workspace.
+    </p>
+
+    <div class="mt-10 flex justify-center items-center gap-x-6">
+      <a href="dashboard/index.html" class="bg-indigo-600 hover:bg-indigo-750 text-white px-8 py-4 rounded-xl font-semibold shadow-lg shadow-indigo-200 transition duration-200 text-lg">
+        Get Started Free
+      </a>
+    </div>
+
+    <!-- Feature Preview Card -->
+    <div class="mt-16 sm:mt-20 relative rounded-2xl bg-slate-900/5 p-2 ring-1 ring-inset ring-slate-900/10 lg:rounded-3xl lg:p-4 max-w-5xl mx-auto">
+      <div class="bg-white rounded-xl shadow-2xl border border-slate-100 p-8 text-left">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="text-2xl mb-2">🎓</div>
+            <h3 class="font-bold text-slate-800">Student Database</h3>
+            <p class="text-sm text-slate-500 mt-1">Keep clean, accessible records of every onboarded intern.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="text-2xl mb-2">📋</div>
+            <h3 class="font-bold text-slate-800">Task Boards</h3>
+            <p class="text-sm text-slate-500 mt-1">Assign projects and track pending deadlines seamlessly.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="text-2xl mb-2">📜</div>
+            <h3 class="font-bold text-slate-800">Instant Certificates</h3>
+            <p class="text-sm text-slate-500 mt-1">Generate performance reports and completion data.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
