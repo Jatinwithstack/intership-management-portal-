@@ -5,63 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Internship Management Portal</title>
 
-    <link rel="stylesheet" href="../css/style.css">
+    <!-- <link rel="stylesheet" href="../css/style.css">
      <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/form.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/responsive.css"> -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 font-sans h-screen min-h-screen overflow-x-hidden">
 
-    <div class="container">
+   <div class="flex min-h-screen w-full items-stretch">
 
-    <div class="sidebar">
-        <h2>IMP</h2>
+    <div class="w-64 bg-slate-900 text-white p-5 flex flex-col justify-between shrink-0">
+        <h2 class="text-2xl font-bold tracking-wider text-indigo-400 mb-6">IMP</h2>
 
-        <ul>
-            <li>Dashboard</li>
-            <li>Students</li>
-            <li>Tasks</li>
-            <li>Attendance</li>
-            <li>Projects</li>
-            <li>Certificates</li>
-            <li>Reports</li>
-            <li>Settings</li>
-            <li>Logout</li>
+        <ul class="space-y-2 flex-1">
+            <li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Dashboard</li>
+<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Students</li>
+<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Tasks</li>
+<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Attendance</li>
+<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Projects</li>
+<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Certificates</li>
+<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Reports</li>
+<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Settings</li>
+<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-red-900/50 text-red-400 hover:text-red-200 transition duration-200 font-medium mt-auto">Logout</li>
         </ul>
     </div>
 
-    <div class="main">
-
-    <div class="top-nav">
-          <div class="search-box">
-              <input type="text" placeholder="Search Students...">
+   <div class="flex-1 flex flex-col overflow-y-auto p-6">
+    <div class="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm mb-6">
+         <div class="relative w-72">
+              <input type="text" placeholder="Search Students..." class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
           </div>
-          <div class="profile">
-              <span>🔔</span>
-              <span>Jatin</span>
+          <div class="flex items-center space-x-4">
+              <span class="cursor-pointer text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100 transition">🔔</span>
+              <span class="font-semibold text-gray-700 text-sm">Jatin</span>
           </div>
       </div>
-        <div class="metrics-grid">
-
-            <div class="card">
+       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between">
                 <h3>Total Students</h3>
                 <p>120</p>
             </div>
 
-            <div class="card">
-                <h3>Active Interns</h3>
-                <p>95</p>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between">
+               <h3 class="text-sm font-medium text-gray-500 tracking-wide uppercase">Active Interns</h3>
+               <p class="text-3xl font-bold text-indigo-600 mt-2">95</p>
             </div>
 
-            <div class="card">
-                <h3>Pending Tasks</h3>
-                <p>18</p>
+           <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between">
+                <h3 class="text-sm font-medium text-gray-500 tracking-wide uppercase">Pending Tasks</h3>
+              <p class="text-3xl font-bold text-amber-600 mt-2">18</p>
             </div>
 
-            <div class="card">
-                <h3>Completed Tasks</h3>
-                <p>250</p>
+           <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between">
+                <h3 class="text-sm font-medium text-gray-500 tracking-wide uppercase">Completed Tasks</h3>
+            <p class="text-3xl font-bold text-emerald-600 mt-2">85</p>
             </div>
 
         </div>
@@ -70,153 +70,79 @@
 
 
 
-<div class="student-table">
-    <h2>Student Management</h2>
+<div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="p-5 border-b border-gray-100">
+    <h2 class="text-lg font-bold text-gray-800">Student Management</h2>
+</div>
+<div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
+        <thead class="bg-gray-50 text-gray-550 uppercase font-semibold text-xs tracking-wider">
+    <tr>
+        <th class="px-6 py-4">Name</th>
+        <th class="px-6 py-4">Email</th>
+        <th class="px-6 py-4">Course</th>
+        <th class="px-6 py-4">Status</th>
+        <th class="px-6 py-4">Action</th>
+    </tr>
+</thead>
 
-<table class="custom-table">
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Course</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
+<tbody class="divide-y divide-gray-100 bg-white text-gray-750">
+            <tr class="hover:bg-gray-50 transition duration-150">
+                <td class="px-6 py-4 font-medium text-gray-950">Jatin</td>
+                <td class="px-6 py-4 text-gray-600">jatin@gmail.com</td>
+                <td class="px-6 py-4 text-gray-600">B.Tech CST</td>
+                <td class="px-6 py-4">
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        Active
+                    </span>
+                </td>
+                <td class="px-6 py-4">
+                    <button class="text-indigo-600 hover:text-indigo-900 font-medium text-xs mr-3 transition">Edit</button>
+                    <button class="text-red-600 hover:text-red-900 font-medium text-xs transition">Delete</button>
+                </td>
+            </tr>
 
-        <tr>
-            <td>Jatin</td>
-            <td>jatin@gmail.com</td>
-            <td>B.Tech CST</td>
-            <td>Active</td>
-            <td>
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </td>
-        </tr>
-
-        <tr>
-            <td>Rahul</td>
-            <td>rahul@gmail.com</td>
-            <td>B.Tech CSE</td>
-            <td>Completed</td>
-            <td>
-                <button class="edit-btn">Edit</button>
-                <button class="delete-btn">Delete</button>
-            </td>
-        </tr>
+       <tr class="hover:bg-gray-50 transition duration-150">
+                <td class="px-6 py-4 font-medium text-gray-950">Rahul</td>
+                <td class="px-6 py-4 text-gray-600">rahul@gmail.com</td>
+                <td class="px-6 py-4 text-gray-600">B.Tech CSE</td>
+                <td class="px-6 py-4">
+                    <!-- Status Badge for Completed -->
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                        Completed
+                    </span>
+                </td>
+                <td class="px-6 py-4">
+                    <button class="text-indigo-600 hover:text-indigo-900 font-medium text-xs mr-3 transition">Edit</button>
+                    <button class="text-red-600 hover:text-red-900 font-medium text-xs transition">Delete</button>
+                </td>
+            </tr>
+            </tbody>
     </table>
 </div>
 
 
 
-<div class="registration-form">
-    <h2>Student Registration</h2>
-
-    <form>
-        <input type="text" placeholder="Full Name">
-        <input type="email" placeholder="Email">
-        <input type="text" placeholder="Phone Number">
-        <input type="text" placeholder="College Name">
-        <input type="text" placeholder="Branch">
-
-        <button type="submit">Register Student</button>
-    </form>
+<div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mt-8 max-w-2xl">
+   <h2 class="text-xl font-bold text-gray-800 mb-6">Student Registration</h2>
+    <form class="flex flex-col space-y-4">
+            <input type="text" placeholder="Full Name" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
+            <input type="email" placeholder="Email" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
+            <input type="text" placeholder="Phone Number" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
+            <input type="text" placeholder="College Name" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
+            <input type="text" placeholder="Branch" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
+            
+            <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg px-4 py-2.5 text-sm transition duration-200 shadow-sm mt-2">
+                Register Student
+            </button>
+        </form>
 </div>
-
-<div class="registration-form">
-
-    <h2>Student Registration</h2>
-
-    <form>
-
-        <input type="text" placeholder="Full Name">
-
-        <input type="email" placeholder="Email">
-
-        <input type="text" placeholder="Phone Number">
-
-        <input type="text" placeholder="College Name">
-
-        <input type="text" placeholder="Branch">
-
-        <button type="submit">Register</button>
-
-    </form>
-
 </div>
-
-    <!-- Main Content Section -->
-    <main>
-       <main>
-        <section>
-            <h2>Local Workspace Dashboard</h2>
-            <p>Real-time analytics and progress tracking for the current internship batch.</p>
-            <hr>
-
-            <section>
-                <h3>Key Institute Metrics</h3>
-                <table border="1" cellpadding="10" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Metric Description</th>
-                            <th>Current Value</th>
-                            <th>Visual Status / Gauge</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Total Registered Students</strong></td>
-                            <td>120 Students</td>
-                            <td><meter min="0" max="200" value="120">120 out of 200</meter> (Target: 200)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Active Students</strong></td>
-                            <td>85 Students</td>
-                            <td><meter min="0" max="120" value="85" low="40" high="100" optimum="110">85 Active</meter> (High Engagement)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Pending Assignments</strong></td>
-                            <td>15 Tasks</td>
-                            <td><meter min="0" max="50" value="15" low="10" high="30">15 Pending</meter> (Safe Zone)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Submitted Assignments</strong></td>
-                            <td>95 Tasks</td>
-                            <td><progress value="95" max="110"></progress> 95/110 Submitted</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <br>
-
-            <section>
-                <h3>Weekly Performance & Completion Rates</h3>
-                
-                <article>
-                    <h4>Overall Batch Progress</h4>
-                    <p>Track how close the current batch is to completing Month 1 milestones:</p>
-                    <progress value="75" max="100"></progress> <strong>75% Completed</strong>
-                </article>
-
-                <br>
-
-                <article>
-                    <h4>Attendance Gauge (Weekly Average)</h4>
-                    <p>Current system average attendance across all domains:</p>
-                    <label for="attendance-gauge">System Attendance: </label>
-                    <meter id="attendance-gauge" min="0" max="100" low="75" high="90" optimum="95" value="88">88%</meter>
-                    <span><strong>88% (Good Standing)</strong></span>
-                </article>
-            </section>
-        </section>
-    </main>
-    </main>
-
-    <!-- Footer Section -->
-    <footer>
-        <hr>
-        <p>&copy; 2026 Internship Management Portal. All Rights Reserved.</p>
-    </footer>
-
+</div> <!-- Main Content Area (jo line 36 par open hua tha) ka end -->
+</div> <!-- Main Flex Container (jo line 18 par open hua tha) ka end -->
 </body>
 </html>
+
+ 
+
+    
