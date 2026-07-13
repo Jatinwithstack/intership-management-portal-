@@ -20,20 +20,23 @@
     <div class="w-64 bg-slate-900 text-white p-5 flex flex-col justify-between shrink-0">
         <h2 class="text-2xl font-bold tracking-wider text-indigo-400 mb-6">IMP</h2>
 
-        <ul class="space-y-2 flex-1">
-            <li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Dashboard</li>
-<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Students</li>
-<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Tasks</li>
-<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Attendance</li>
-<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Projects</li>
-<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Certificates</li>
-<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Reports</li>
-<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition duration-200 font-medium">Settings</li>
-<li class="cursor-pointer px-4 py-2.5 rounded-lg hover:bg-red-900/50 text-red-400 hover:text-red-200 transition duration-200 font-medium mt-auto">Logout</li>
-        </ul>
+        <!-- Line 23 ka <ul> pehle se hai -->
+    <ul class="space-y-2 flex-1">
+      <li id="btn-dashboard" onclick="switchTab('dashboard')" class="nav-btn cursor-pointer px-4 py-2.5 rounded-lg bg-blue-600 text-white font-medium transition">Dashboard</li>
+      <li id="btn-students" onclick="switchTab('students')" class="nav-btn cursor-pointer px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition">Students</li>
+      <li id="btn-tasks" onclick="switchTab('tasks')" class="nav-btn cursor-pointer px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition">Tasks</li>
+      <li id="btn-attendance" onclick="switchTab('attendance')" class="nav-btn cursor-pointer px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition">Attendance</li>
+      <li id="btn-projects" onclick="switchTab('projects')" class="nav-btn cursor-pointer px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition">Projects</li>
+      <li id="btn-certificates" onclick="switchTab('certificates')" class="nav-btn cursor-pointer px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition">Certificates</li>
+      <li id="btn-reports" onclick="switchTab('reports')" class="nav-btn cursor-pointer px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition">Reports</li>
+      <li id="btn-settings" onclick="switchTab('settings')" class="nav-btn cursor-pointer px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition">Settings</li>
+      <li id="btn-logout" class="cursor-pointer px-4 py-2.5 rounded-lg text-red-400 hover:bg-red-900/50 hover:text-red-300 transition">Logout</li>
+    </ul>
     </div>
 
    <div class="flex-1 flex flex-col overflow-y-auto p-6">
+    <!-- Line 38 par block ki jagah ye classes lagayein taaki flex layout break na ho -->
+<div id="dashboard-section" class="tab-content flex flex-col w-full">
     <div class="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm mb-6">
          <div class="relative w-72">
               <input type="text" placeholder="Search Students..." class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
@@ -137,9 +140,177 @@
             </button>
         </form>
 </div>
+</div> <!-- 🔴 Line 141 ka puraana div pehle se hai -->
+
+    </div> <!-- 🔴 YAHAN APNA NAVA DIV ADD KAREIN: Jo line 38 wale "dashboard-section" ko close karega -->
+
+    <!-- 🟢 Yahan se baaki naye tabs ke content daal dijiye (Students aur Tasks) -->
+    <!-- ================= STUDENTS TAB ================= -->
+    <div id="students-section" class="tab-content hidden w-full">
+      <!-- Header Bar -->
+      <div class="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm mb-6 border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800">Student Database</h2>
+        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition shadow-sm">
+          + Add Student
+        </button>
+      </div>
+
+      <!-- Table Card -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-gray-200 text-gray-400 text-xs font-semibold uppercase tracking-wider">
+                <th class="pb-3">Name</th>
+                <th class="pb-3">Email</th>
+                <th class="pb-3">Course</th>
+                <th class="pb-3">Status</th>
+              </tr>
+            </thead>
+            <tbody class="text-gray-600 divide-y divide-gray-100 text-sm">
+              <tr class="hover:bg-gray-50/50 transition">
+                <td class="py-3 font-medium text-gray-800">Jatin</td>
+                <td class="py-3 text-gray-500">jatin@gmail.com</td>
+                <td class="py-3">B.Tech CST</td>
+                <td class="py-3"><span class="bg-green-100 text-green-700 px-2.5 py-1 rounded-full text-xs font-semibold">Active</span></td>
+              </tr>
+              <tr class="hover:bg-gray-50/50 transition">
+                <td class="py-3 font-medium text-gray-800">Rahul</td>
+                <td class="py-3 text-gray-500">rahul@gmail.com</td>
+                <td class="py-3">B.Tech CSE</td>
+                <td class="py-3"><span class="bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full text-xs font-semibold">Completed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TASKS TAB ================= -->
+    <div id="tasks-section" class="tab-content hidden w-full">
+      <!-- Header Bar -->
+      <div class="bg-white p-4 rounded-xl shadow-sm mb-6 border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800">Internship Tasks</h2>
+      </div>
+
+      <!-- Task List Card -->
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 space-y-4">
+        <!-- Task 1 -->
+        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
+          <div>
+            <h4 class="font-semibold text-gray-800">Create Dashboard Layout</h4>
+            <p class="text-xs text-gray-400 mt-0.5">Assigned to: Jatin • Deadline: 18 July</p>
+          </div>
+          <span class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-medium">Pending</span>
+        </div>
+
+        <!-- Task 2 -->
+        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100">
+          <div>
+            <h4 class="font-semibold text-gray-800">Integrate Tailwind CSS</h4>
+            <p class="text-xs text-gray-400 mt-0.5">Assigned to: Rahul • Deadline: 12 July</p>
+          </div>
+          <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">Completed</span>
+        </div>
+      </div>
+    </div>
+    <!-- ================= ATTENDANCE TAB ================= -->
+    <div id="attendance-section" class="tab-content hidden w-full">
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Attendance Tracker</h2>
+        <div class="p-4 bg-blue-50 text-blue-700 rounded-lg text-sm mb-4">
+          Today's Attendance status for active interns.
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+            <p class="text-xs text-gray-400">Present Today</p>
+            <p class="text-xl font-bold text-green-600">92</p>
+          </div>
+          <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+            <p class="text-xs text-gray-400">Absent Today</p>
+            <p class="text-xl font-bold text-red-600">3</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= PROJECTS TAB ================= -->
+    <div id="projects-section" class="tab-content hidden w-full">
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Project Management</h2>
+        <p class="text-gray-500 text-sm mb-4">List of ongoing and completed intern projects.</p>
+        <div class="p-4 bg-gray-50 rounded-xl border border-gray-100">
+          <h4 class="font-semibold text-gray-800">Internship Portal Dashboard</h4>
+          <span class="inline-block mt-2 bg-indigo-100 text-indigo-700 text-xs px-2.5 py-0.5 rounded-full font-medium">In Progress</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= CERTIFICATES TAB ================= -->
+    <div id="certificates-section" class="tab-content hidden w-full">
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Certificates Center</h2>
+        <p class="text-gray-500 text-sm mb-4">Generate or track issued internship completion certificates.</p>
+        <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition">
+          Issue New Certificate
+        </button>
+      </div>
+    </div>
+
+    <!-- ================= REPORTS TAB ================= -->
+    <div id="reports-section" class="tab-content hidden w-full">
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Performance Reports</h2>
+        <p class="text-gray-500 text-sm">Monthly overview data analytics logs will appear here.</p>
+      </div>
+    </div>
+
+    <!-- ================= SETTINGS TAB ================= -->
+    <div id="settings-section" class="tab-content hidden w-full">
+      <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Portal Settings</h2>
+        <div class="space-y-3 max-w-md">
+          <label class="block text-sm font-medium text-gray-700">Portal Name</label>
+          <input type="text" value="Internship Management Portal" class="w-full bg-gray-50 border border-gray-200 p-2 rounded-lg text-sm">
+          <button class="bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-lg font-medium text-sm transition mt-2">
+            Save Settings
+          </button>
+        </div>
+      </div>
+    </div>
 </div>
 </div> <!-- Main Content Area (jo line 36 par open hua tha) ka end -->
 </div> <!-- Main Flex Container (jo line 18 par open hua tha) ka end -->
+<!-- Line 161 ke divs ke thik niche ye paste karein -->
+  <script>
+    function switchTab(tabName) {
+      // 1. Saare tab contents ko hide karo
+      const sections = document.querySelectorAll('.tab-content');
+      sections.forEach(section => {
+        section.classList.remove('block');
+        section.classList.add('hidden');
+      });
+
+      // 2. Sirf clicked section ko block (visible) karo
+      const activeSection = document.getElementById(`${tabName}-section`);
+      if (activeSection) {
+        activeSection.classList.remove('hidden');
+        activeSection.classList.add('block');
+      }
+
+      // 3. Sidebar ke saare buttons ko normal text-slate style do
+      const buttons = document.querySelectorAll('.nav-btn');
+      buttons.forEach(btn => {
+        btn.className = "nav-btn cursor-pointer px-4 py-2.5 rounded-lg text-slate-400 hover:bg-slate-800 hover:text-white transition";
+      });
+
+      // 4. Current selected button ko blue highlight karo
+      const currentButton = document.getElementById(`btn-${tabName}`);
+      if (currentButton) {
+        currentButton.className = "nav-btn cursor-pointer px-4 py-2.5 rounded-lg bg-blue-600 text-white font-medium transition";
+      }
+    }
+  </script>
 </body>
 </html>
 
