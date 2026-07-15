@@ -62,6 +62,34 @@
     </tr>
 </table>
 
+<!-- Search, Filter aur Sort ke liye Controls -->
+        <div class="table-controls" style="margin-bottom: 15px; display: flex; gap: 10px; align-items: center;">
+            <div>
+                <label for="search-student">Search: </label>
+                <input type="text" id="search-student" placeholder="Name ya Email se dhoondhein...">
+            </div>
+
+            <div>
+                <label for="filter-status">Filter by Status: </label>
+                <select id="filter-status">
+                    <option value="">All Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                    <option value="Pending">Pending</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="sort-students">Sort By: </label>
+                <select id="sort-students">
+                    <option value="">Default</option>
+                    <option value="name">Name (A-Z)</option>
+                    <option value="attendance">Attendance (High-Low)</option>
+                    <option value="performance">Performance (High-Low)</option>
+                </select>
+            </div>
+        </div>
+        
             <!-- STUDENT RECORDS TABLE -->
             <table border="1" cellpadding="8" cellspacing="0" width="100%">
                 <caption><strong>Active Interns Database (Batch 2026)</strong></caption>
