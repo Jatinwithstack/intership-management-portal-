@@ -107,4 +107,43 @@ function renderStudentTable(searchQuery = '', statusFilter = '', sortBy = '') {
         `;
         tableBody.appendChild(row);
     });
+
+    // 4. Update Counters UI
+    const totalCountElement = document.getElementById('total-students-count');
+    const activeCountElement = document.getElementById('active-students-count');
+
+    if (totalCountElement) {
+       totalCountElement.innerText = filteredStudents.length;
+    }
+
+    const activeInterns = filteredStudents.filter(s => String(s.status).toLowerCase() === 'active');
+    if (activeCountElement) {
+       activeCountElement.innerText = activeInterns.length;
+    }
+
 }
+
+// 5. Search, Filter aur Sorting Events Connect Karna
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.querySelector('input[placeholder*="Name ya Email"]');
+    const statusFilter = document.querySelector('select[id*="status"]') || document.querySelector('select'); // Pehla dropdown filter ke liye
+    const sortBySelect = document.querySelector('select[id*="sort"]') || document.querySelectorAll('select')[1]; // Doosra dropdown sort ke liye
+
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            renderStudentTable(e.target.value, statusFilter?.value, sortBySelect?.value);
+        });
+    }
+
+    if (statusFilter) {
+        statusFilter.addEventListener('change', (e) => {
+            renderStudentTable(searchInput?.value, e.target.value, sortBySelect?.value);
+        });
+    }
+
+    if (sortBySelect) {
+        sortBySelect.addEventListener('change', (e) => {
+            renderStudentTable(searchInput?.value, statusFilter?.value, e.target.value);
+        });
+    }
+});

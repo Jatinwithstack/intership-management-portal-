@@ -60,22 +60,22 @@
        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
           <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between">
                 <h3>Total Students</h3>
-                <p>120</p>
+               <p id="db-total-students" class="text-3xl font-bold text-indigo-600 mt-2">0</p>
             </div>
 
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between">
                <h3 class="text-sm font-medium text-gray-500 tracking-wide uppercase">Active Interns</h3>
-               <p class="text-3xl font-bold text-indigo-600 mt-2">95</p>
+               <p id="db-active-students" class="text-3xl font-bold text-indigo-600 mt-2">0</p>
             </div>
 
            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between">
                 <h3 class="text-sm font-medium text-gray-500 tracking-wide uppercase">Pending Tasks</h3>
-              <p class="text-3xl font-bold text-amber-600 mt-2">18</p>
+             <p id="db-pending-tasks" class="text-3xl font-bold text-amber-600 mt-2">0</p>
             </div>
 
            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-between">
                 <h3 class="text-sm font-medium text-gray-500 tracking-wide uppercase">Completed Tasks</h3>
-            <p class="text-3xl font-bold text-emerald-600 mt-2">85</p>
+           <p id="db-completed-tasks" class="text-3xl font-bold text-emerald-600 mt-2">0</p>
             </div>
 
         </div>
@@ -85,67 +85,39 @@
 
 
 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-    <div class="p-5 border-b border-gray-100">
-    <h2 class="text-lg font-bold text-gray-800">Student Management</h2>
-</div>
-<div class="overflow-x-auto">
-    <table class="min-w-full divide-y divide-gray-200 text-left text-sm">
-        <thead class="bg-gray-50 text-gray-550 uppercase font-semibold text-xs tracking-wider">
-    <tr>
-        <th class="px-6 py-4">Name</th>
-        <th class="px-6 py-4">Email</th>
-        <th class="px-6 py-4">Course</th>
-        <th class="px-6 py-4">Status</th>
-        <th class="px-6 py-4">Action</th>
-    </tr>
-</thead>
-
-<tbody class="divide-y divide-gray-100 bg-white text-gray-750">
-            <tr class="hover:bg-gray-50 transition duration-150">
-                <td class="px-6 py-4 font-medium text-gray-950">Jatin</td>
-                <td class="px-6 py-4 text-gray-600">jatin@gmail.com</td>
-                <td class="px-6 py-4 text-gray-600">B.Tech CST</td>
-                <td class="px-6 py-4">
-                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                        Active
-                    </span>
-                </td>
-                <td class="px-6 py-4">
-                    <button class="text-indigo-600 hover:text-indigo-900 font-medium text-xs mr-3 transition">Edit</button>
-                    <button class="text-red-600 hover:text-red-900 font-medium text-xs transition">Delete</button>
-                </td>
-            </tr>
-
-       <tr class="hover:bg-gray-50 transition duration-150">
-                <td class="px-6 py-4 font-medium text-gray-950">Rahul</td>
-                <td class="px-6 py-4 text-gray-600">rahul@gmail.com</td>
-                <td class="px-6 py-4 text-gray-600">B.Tech CSE</td>
-                <td class="px-6 py-4">
-                    <!-- Status Badge for Completed -->
-                    <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-                        Completed
-                    </span>
-                </td>
-                <td class="px-6 py-4">
-                    <button class="text-indigo-600 hover:text-indigo-900 font-medium text-xs mr-3 transition">Edit</button>
-                    <button class="text-red-600 hover:text-red-900 font-medium text-xs transition">Delete</button>
-                </td>
-            </tr>
-            </tbody>
-    </table>
-</div>
+    <!-- === FIXED PADDING FOR STUDENT MANAGEMENT BLOCK === -->
+<!-- === STUDENT MANAGEMENT TABLE BLOCK === -->
+    <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 mt-6 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-100">
+            <h2 class="text-lg font-bold text-gray-800 dark:text-white">Student Management</h2>
+        </div>
+        <div class="overflow-x-auto w-full">
+            <thead class="bg-gray-50 dark:bg-slate-700 text-gray-500 dark:text-gray-300 uppercase text-xs font-semibold tracking-wider">
+          <tr>
+            <th class="px-4 py-3 text-left">Name</th>
+            <th class="px-4 py-3 text-left">Email</th>
+            <th class="px-4 py-3 text-left">Course</th>
+            <th class="px-4 py-3 text-left">Status</th>
+            <th class="px-4 py-3 text-left">Action</th>
+          </tr>
+        </thead>
+                <tbody id="student-table-body" class="divide-y divide-gray-100 bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-200">
+                    <!-- Dynamic Rows script.js se aayengi -->
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
 
 <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mt-8 max-w-2xl">
    <h2 class="text-xl font-bold text-gray-800 mb-6">Student Registration</h2>
     <form class="flex flex-col space-y-4">
-            <input type="text" placeholder="Full Name" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
-            <input type="email" placeholder="Email" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
-            <input type="text" placeholder="Phone Number" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
-            <input type="text" placeholder="College Name" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
-            <input type="text" placeholder="Branch" class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition">
-            
+           <input id="reg-name" type="text" placeholder="Full Name" class="w-full bg-gray-50 border border-gray-300 p-2 rounded">
+<input id="reg-email" type="email" placeholder="Email" class="w-full bg-gray-50 border border-gray-300 p-2 rounded">
+<input id="reg-phone" type="text" placeholder="Phone Number" class="w-full bg-gray-50 border border-gray-300 p-2 rounded">
+<input id="reg-college" type="text" placeholder="College Name" class="w-full bg-gray-50 border border-gray-300 p-2 rounded">
+<input id="reg-branch" type="text" placeholder="Branch" class="w-full bg-gray-50 border border-gray-300 p-2 rounded">
             <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg px-4 py-2.5 text-sm transition duration-200 shadow-sm mt-2">
                 Register Student
             </button>
@@ -158,6 +130,22 @@
     <!-- 🟢 Yahan se baaki naye tabs ke content daal dijiye (Students aur Tasks) -->
     <!-- ================= STUDENTS TAB ================= -->
     <div id="students-section" class="tab-content w-full">
+
+        <!-- Filter aur Sorting Dropdowns -->
+          <div class="flex gap-2 mt-2 mb-2 px-4">
+            <select id="statusFilter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2 dark:bg-slate-700 dark:text-white">
+                <option value="All">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Completed">Completed</option>
+            </select>
+
+            <select id="sortOptions" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2 dark:bg-slate-700 dark:text-white">
+                <option value="default">Sort By</option>
+                <option value="name-az">Name (A-Z)</option>
+                <option value="name-za">Name (Z-A)</option>
+            </select>
+          </div>
+          
       <!-- Header Bar -->
       <div class="flex items-center justify-between bg-white p-4 rounded-xl shadow-sm mb-6 border border-gray-100">
         <h2 class="text-xl font-bold text-gray-800">Student Database</h2>
@@ -170,14 +158,15 @@
       <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="border-b border-gray-200 text-gray-400 text-xs font-semibold uppercase tracking-wider">
-                <th class="pb-3">Name</th>
-                <th class="pb-3">Email</th>
-                <th class="pb-3">Course</th>
-                <th class="pb-3">Status</th>
-              </tr>
-            </thead>
+           <thead class="bg-gray-50 text-gray-500 uppercase text-xs font-semibold tracking-wider">
+          <tr>
+            <th class="px-6 py-3 text-left">Name</th>
+            <th class="px-6 py-3 text-left">Email</th>
+            <th class="px-6 py-3 text-left">Course</th>
+            <th class="px-6 py-3 text-left">Status</th>
+            <th class="px-6 py-3 text-left">Action</th>
+          </tr>
+        </thead>
            <tbody id="student-table-body" class="text-gray-600 divide-y divide-gray-100 text-sm">
              
             </tbody>

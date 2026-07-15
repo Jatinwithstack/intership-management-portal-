@@ -133,6 +133,13 @@ if (studentForm) {
             return;
         }
 
+        // Email Format Validation Regex Check
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(emailVal)) {
+            alert("Kripya ek valid Email ID daalein! (Example: name@gmail.com)");
+            return;
+        }
+
         if (editMode) {
             // Edit mode: Purane data ko update karo
             students = students.map(student => {
@@ -390,6 +397,10 @@ if (projectForm) {
         e.preventDefault();
         const titleVal = document.getElementById('project-title').value.trim();
         const techVal = document.getElementById('project-tech').value.trim();
+        if (titleVal === "" || techVal === "") {
+            alert("Bhai, Project Title aur Tech/Stream dono bharna mandatory hai!");
+            return;
+        }
 
         const newProject = {
             id: Date.now(),
@@ -645,26 +656,70 @@ window.alert = function(msg) {
 //  3. FORM VALIDATION & MODAL SIMULATION INTERACTION
 // =========================================================
 // Agar aap student registration submit handle kar rahe hain:
-studentForm = document.querySelector('form');
-if (studentForm) {
-    studentForm.addEventListener('submit', function(e) {
-        const nameInput = studentForm.querySelector('input[type="text"]');
-        const emailInput = studentForm.querySelector('input[type="email"]');
+const currentStudentForm = document.querySelector('form');
+if (currentStudentForm) {
+    currentStudentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
         
-        if (nameInput && nameInput.value.trim() === "") {
-            e.preventDefault();
-            showToast('Bhai, Name field empty nahi ho sakti!', 'error');
-            return false;
+        // Input fields se values nikalna
+        const nameVal = document.getElementById('reg-name')?.value.trim();
+        const emailVal = document.getElementById('reg-email')?.value.trim();
+        const phoneVal = document.getElementById('reg-phone')?.value.trim();
+        const collegeVal = document.getElementById('reg-college')?.value.trim();
+        const branchVal = document.getElementById('reg-branch')?.value.trim();
+
+        if (!nameVal || !emailVal) {
+            alert('Bhai, Name aur Email fill karna zaroori hai!');
+            return;
         }
+
+        let currentStudents = JSON.parse(localStorage.getItem('students')) || [];
+
+        // Check ki kya hum kisi student ko EDIT kar rahe hain
+        if (window.editingStudentId !== null && window.editingStudentId !== undefined) {
+            const idx = window.editingStudentId;
+            if (currentStudents[idx]) {
+                currentStudents[idx] = {
+                    ...currentStudents[idx],
+                    name: nameVal,
+                    email: emailVal,
+                    phone: phoneVal,
+                    college: collegeVal,
+                    branch: branchVal,
+                    course: branchVal || currentStudents[idx].course
+                };
+            }
+            window.editingStudentId = null; // Edit mode reset
+            alert('Student data successfully update ho gaya! 🛠️');
+        } else {
+            // Naya student ADD karne ke liye
+            const newStudent = {
+                id: Date.now(),
+                name: nameVal,
+                email: emailVal,
+                phone: phoneVal,
+                college: collegeVal,
+                branch: branchVal,
+                course: branchVal || "B.Tech CST",
+                status: "Active"
+            };
+            currentStudents.push(newStudent);
+            alert('Student successfully register ho gaya! 🎉');
+        }
+
+        localStorage.setItem('students', JSON.stringify(currentStudents));
+        currentStudentForm.reset();
         
-        if (emailInput && !emailInput.value.includes('@')) {
-            e.preventDefault();
-            showToast("Bhai, sahi aur valid Email address daalo!", "error");
-            return false;
+        // Submit button ko wapas normal state mein lana
+        const submitBtn = currentStudentForm.querySelector('button[type="submit"]');
+        if (submitBtn) {
+            submitBtn.innerText = "Register Student";
+            submitBtn.className = "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-4";
         }
+
+        window.location.reload();
     });
 }
-
 // Global toggle function for Jatin's Attendance Portal
 window.toggleAttendanceDirect = function(studentIdentifier) {
     // 1. Local storage se data nikalen
@@ -692,3 +747,366 @@ window.toggleAttendanceDirect = function(studentIdentifier) {
         renderAttendance();
     }
 };
+
+
+// === FINAL DYNAMIC COUNTERS LOGIC ===
+(() => {
+    const totalCard = document.getElementById('db-total-students');
+    const activeCard = document.getElementById('db-active-students');
+    const pendingCard = document.getElementById('db-pending-tasks');
+    const completedCard = document.getElementById('db-completed-tasks');
+
+    const storageStudents = JSON.parse(localStorage.getItem('students')) || [];
+    const storageTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    if (totalCard) totalCard.innerText = storageStudents.length;
+    if (activeCard) activeCard.innerText = storageStudents.filter(s => String(s.status).toLowerCase() === 'active').length;
+    
+    // Status lowercase aur uppercase dono ko sahi handle karne ke liye trim().toLowerCase() use kiya hai
+    if (pendingCard) pendingCard.innerText = storageTasks.filter(t => String(t.status).trim().toLowerCase() === 'pending').length;
+    if (completedCard) completedCard.innerText = storageTasks.filter(t => String(t.status).trim().toLowerCase() === 'completed').length;
+})();
+
+// === STUDENT REGISTRATION FORM SUBMIT LOGIC ===
+// === UPDATE HUA SUBMIT LOGIC (EDIT MODE SUPPORTED) ===
+(() => {
+    const currentStudentForm = document.querySelector('form');
+    if (currentStudentForm) {
+        currentStudentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nameVal = document.getElementById('reg-name')?.value.trim();
+            const emailVal = document.getElementById('reg-email')?.value.trim();
+            const phoneVal = document.getElementById('reg-phone')?.value.trim();
+            const collegeVal = document.getElementById('reg-college')?.value.trim();
+            const branchVal = document.getElementById('reg-branch')?.value.trim();
+
+            if (!nameVal || !emailVal) {
+                alert('Bhai, Name aur Email fill karna zaroori hai!');
+                return;
+            }
+
+            let currentStudents = JSON.parse(localStorage.getItem('students')) || [];
+
+            // Check ki kya hum kisi ko EDIT kar rahe hain ya NAYA ADD kar rahe hain
+            if (window.editingStudentId !== null && window.editingStudentId !== undefined) {
+                // === EDIT MODE: Purane student ko update karna ===
+                currentStudents = currentStudents.map((s, idx) => {
+                    if (s.id === window.editingStudentId || idx === window.editingStudentId || String(s.id) === String(window.editingStudentId)) {
+                        return {
+                            ...s,
+                            name: nameVal,
+                            email: emailVal,
+                            phone: phoneVal,
+                            college: collegeVal,
+                            branch: branchVal,
+                            course: branchVal || s.course
+                        };
+                    }
+                    return s;
+                });
+                
+                window.editingStudentId = null; // Reset edit mode
+                alert('Student data successfully update ho gaya! 🛠️');
+            } else {
+                // === ADD MODE: Naya student add karna ===
+                const newStudent = {
+                    id: Date.now(),
+                    name: nameVal,
+                    email: emailVal,
+                    phone: phoneVal,
+                    college: collegeVal,
+                    branch: branchVal,
+                    course: branchVal || "B.Tech",
+                    status: "Active"
+                };
+                currentStudents.push(newStudent);
+                alert('Student successfully register ho gaya! 🎉');
+            }
+
+            localStorage.setItem('students', JSON.stringify(currentStudents));
+            currentStudentForm.reset();
+            
+            // Button ka text aur color wapas normal (Blue/Indigo) karna
+            const submitBtn = currentStudentForm.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.innerText = "Register Student";
+                submitBtn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                submitBtn.classList.add('bg-indigo-600', 'hover:bg-indigo-700');
+            }
+
+            // Page reload taaki table aur counters refresh ho jayein
+            window.location.reload();
+        });
+    }
+})();
+
+// === DYNAMIC TABLE RENDER & ACTION BUTTONS LOGIC ===
+function renderDashboardStudents() {
+    const tableBody = document.getElementById('student-table-body');
+    if (!tableBody) return;
+
+    // Local storage se active list lana
+    const studentsList = JSON.parse(localStorage.getItem('students')) || [];
+    tableBody.innerHTML = ''; // Pehle se khali karna
+
+    studentsList.forEach((student, index) => {
+        const row = document.createElement('tr');
+        row.className = "hover:bg-gray-50 transition duration-150";
+
+        row.innerHTML = `
+            <td class="px-6 py-4 font-medium text-gray-950">${student.name}</td>
+            <td class="px-6 py-4 text-gray-600">${student.email}</td>
+            <td class="px-6 py-4 text-gray-600">${student.course || 'B.Tech CST'}</td>
+            <td class="px-6 py-4">
+                <span class="px-2 py-1 rounded text-xs ${String(student.status).toLowerCase() === 'active' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}">
+                    ${student.status}
+                </span>
+            </td>
+            <td class="px-6 py-4 space-x-2">
+                <button onclick="editStudentInline(${student.id || index})" class="text-blue-600 hover:underline font-medium">Edit</button>
+                <button onclick="deleteStudentInline(${student.id || index})" class="text-red-600 hover:underline font-medium">Delete</button>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// === DYNAMIC TABLE RENDER & ACTION BUTTONS LOGIC ===
+function renderDashboardStudents() {
+    const tableBody = document.getElementById('student-table-body');
+    if (!tableBody) return;
+
+    const studentsList = JSON.parse(localStorage.getItem('students')) || [];
+    tableBody.innerHTML = ''; 
+
+    studentsList.forEach((student, index) => {
+        const row = document.createElement('tr');
+        row.className = "hover:bg-gray-50 transition duration-150";
+
+        // Strict Check: Agar course blank ya string 'undefined' ho toh handle karein
+        const courseText = (student.course && student.course !== 'undefined' && student.course !== '') ? student.course : 'B.Tech CST';
+
+       row.innerHTML = `
+            <td class="px-4 py-4 font-medium text-gray-950 text-left capitalize">${student.name}</td>
+            <td class="px-4 py-4 text-gray-600 text-left">${student.email}</td>
+            <td class="px-4 py-4 text-gray-600 text-left">${courseText}</td>
+            <td class="px-4 py-4 text-left">
+                <span class="px-2 py-1 rounded text-xs ${String(student.status).toLowerCase() === 'active' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800'}">
+                    ${student.status}
+                </span>
+            </td>
+            <td class="px-4 py-4 space-x-2 text-left">
+                <button onclick="editStudentInline(${index})" class="text-blue-600 hover:underline font-medium">Edit</button>
+                <button onclick="deleteStudentInline(${index})" class="text-red-600 hover:underline font-medium">Delete</button>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+function updateDashboardCounters() {
+    const studentsList = JSON.parse(localStorage.getItem('students')) || [];
+    
+    // Total Students count
+    const totalStudentsCount = studentsList.length;
+    
+    // Active Interns count
+    const activeInternsCount = studentsList.filter(s => String(s.status).toLowerCase() === 'active').length;
+
+    // Har card ko dhoodh kar uska content text dynamically change karna
+    const cards = document.querySelectorAll('div');
+    cards.forEach(card => {
+        const text = card.innerText || '';
+        if (text.includes('Total Students') || text.includes('TOTAL STUDENTS')) {
+            const numElem = card.querySelector('p') || card.querySelector('.text-3xl') || card.querySelector('span');
+            if (numElem) numElem.innerText = totalStudentsCount;
+        }
+        if (text.includes('ACTIVE INTERNS') || text.includes('Active Interns')) {
+            const numElem = card.querySelector('p') || card.querySelector('.text-3xl') || card.querySelector('span');
+            if (numElem) numElem.innerText = activeInternsCount;
+        }
+    });
+}
+
+// === INDEX BASED EDIT ===
+window.editStudentInline = function(index) {
+    let studentsList = JSON.parse(localStorage.getItem('students')) || [];
+    const studentToEdit = studentsList[index];
+    
+    if (!studentToEdit) {
+        alert("Student data nahi mila!");
+        return;
+    }
+
+    document.getElementById('reg-name').value = studentToEdit.name || '';
+    document.getElementById('reg-email').value = studentToEdit.email || '';
+    document.getElementById('reg-phone').value = studentToEdit.phone || '';
+    document.getElementById('reg-college').value = studentToEdit.college || '';
+    document.getElementById('reg-branch').value = studentToEdit.branch || '';
+
+    window.editingStudentId = index;
+
+    const submitBtn = document.querySelector('form button[type="submit"]');
+    if (submitBtn) {
+        submitBtn.innerText = "Update Student";
+        submitBtn.classList.remove('bg-indigo-600', 'hover:bg-indigo-700');
+        submitBtn.classList.add('bg-green-600', 'hover:bg-green-700');
+    }
+
+    document.getElementById('reg-name').scrollIntoView({ behavior: 'smooth' });
+};
+
+// === INDEX BASED DELETE ===
+window.deleteStudentInline = function(index) {
+    if (confirm("Kya aap sach me is student ko remove karna chahte hain?")) {
+        let studentsList = JSON.parse(localStorage.getItem('students')) || [];
+        
+        studentsList.splice(index, 1);
+        
+        localStorage.setItem('students', JSON.stringify(studentsList));
+        window.location.reload();
+    }
+};
+
+// 1. Delete Student Function with Confirmation Popup
+function deleteStudentInline(index) {
+    // Delete karne se pehle browser confirmation mangega
+    if (confirm("Kya aap sach mein is student ka record delete karna chahte hain?")) {
+        let studentsList = JSON.parse(localStorage.getItem('students')) || [];
+        
+        // Array se us student ko delete karega
+        studentsList.splice(index, 1);
+        
+        // Wapas local storage mein save karega
+        localStorage.setItem('students', JSON.stringify(studentsList));
+        
+        // Dashboard table aur counters ko refresh karega
+        if (typeof renderDashboardStudents === "function") {
+            renderDashboardStudents();
+        }
+        if (typeof updateDashboardCounters === "function") {
+            updateDashboardCounters();
+        }
+    }
+}
+
+// 2. Search Box Filter Functionality
+document.querySelector('input[placeholder="Search Students..."]')?.addEventListener('input', function(e) {
+    const searchText = e.target.value.toLowerCase();
+    const tableBody = document.getElementById('student-table-body');
+    if (!tableBody) return;
+
+    const studentsList = JSON.parse(localStorage.getItem('students')) || [];
+    tableBody.innerHTML = ''; 
+
+    studentsList.forEach((student, index) => {
+        if (student.name.toLowerCase().includes(searchText) || student.email.toLowerCase().includes(searchText)) {
+            const row = document.createElement('tr');
+            row.className = "hover:bg-gray-50 transition duration-150";
+            
+            row.innerHTML = `
+                <td class="px-6 py-4 font-medium text-gray-950">${student.name}</td>
+                <td class="px-6 py-4 text-gray-600">${student.email}</td>
+                <td class="px-6 py-4 text-gray-600">${student.course || 'B.Tech CST'}</td>
+                <td class="px-6 py-4">
+                    <span class="px-2 py-1 rounded text-xs ${String(student.status).toLowerCase() === 'active' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800'}">
+                        ${student.status}
+                    </span>
+                </td>
+                <td class="px-6 py-4 space-x-2">
+                    <button onclick="editStudentInline(${index})" class="text-blue-600 hover:underline">Edit</button>
+                    <button onclick="deleteStudentInline(${index})" class="text-red-600 hover:underline">Delete</button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        }
+    });
+});
+
+// ==========================================
+// STATUS FILTER & SORTING FUNCTIONALITY
+// ==========================================
+
+// 1. Filter by Status Listener
+document.getElementById('statusFilter')?.addEventListener('change', function() {
+    applyFilterAndSort();
+});
+
+// 2. Sort Listener
+document.getElementById('sortOptions')?.addEventListener('change', function() {
+    applyFilterAndSort();
+});
+
+// Main Core Function jo data filter aur sort karke table refresh karega
+function applyFilterAndSort() {
+    const statusVal = document.getElementById('statusFilter')?.value || 'All';
+    const sortVal = document.getElementById('sortOptions')?.value || 'default';
+    let studentsList = JSON.parse(localStorage.getItem('students')) || [];
+
+    // Pehle filter karo status ke basis par
+    if (statusVal !== 'All') {
+        studentsList = studentsList.filter(student => student.status === statusVal);
+    }
+
+    // Fir sort karo select option ke basis par
+    if (sortVal === 'name-az') {
+        studentsList.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortVal === 'name-za') {
+        studentsList.sort((a, b) => b.name.localeCompare(a.name));
+    }
+
+    // Ab filter/sort kiye huye data ko dashboard table par render karo
+    const tableBody = document.getElementById('student-table-body');
+    if (!tableBody) return;
+    
+    tableBody.innerHTML = ''; // Table khali karein
+    
+    studentsList.forEach((student, index) => {
+        const row = document.createElement('tr');
+        row.className = "hover:bg-gray-50 transition duration-150";
+        row.innerHTML = `
+            <td class="px-6 py-4 font-medium text-gray-950">${student.name}</td>
+            <td class="px-6 py-4 text-gray-600">${student.email}</td>
+            <td class="px-6 py-4 text-gray-600">${student.course || 'B.Tech CST'}</td>
+            <td class="px-6 py-4">
+                <span class="px-2 py-1 rounded text-xs ${String(student.status).toLowerCase() === 'active' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800'}">
+                    ${student.status}
+                </span>
+            </td>
+            <td class="px-6 py-4 space-x-2">
+                <button onclick="editStudentInline(${index})" class="text-blue-600 hover:underline">Edit</button>
+                <button onclick="deleteStudentInline(${index})" class="text-red-600 hover:underline">Delete</button>
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// 1. Counters ko automatic update karne ka logic
+function updateDashboardCounters() {
+    let studentsList = JSON.parse(localStorage.getItem('students')) || [];
+    
+    // Alag-alag select elements/cards ko dhoondhna (inhe apni HTML IDs se match kar lena)
+    const totalCard = document.getElementById('total-students-count') || document.querySelector('.total-students-class');
+    const activeCard = document.getElementById('active-students-count') || document.querySelector('.active-students-class');
+    
+    if (totalCard) {
+        totalCard.innerText = studentsList.length;
+    }
+    
+    if (activeCard) {
+        const activeCount = studentsList.filter(student => String(student.status).toLowerCase() === 'active').length;
+        activeCard.innerText = activeCount;
+    }
+}
+
+// 2. Page load hote hi sab kuch automatic chalane ke liye listener
+document.addEventListener('DOMContentLoaded', function() {
+    // Pehle se save data ko screen par dikhayega
+    if (typeof renderDashboardStudents === "function") renderDashboardStudents();
+    if (typeof applyFilterAndSort === "function") applyFilterAndSort();
+    
+    // Counters ko update karega
+    updateDashboardCounters();
+});
