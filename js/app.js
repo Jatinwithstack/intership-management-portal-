@@ -94,15 +94,15 @@ function renderStudentTable(searchQuery = '', statusFilter = '', sortBy = '') {
     filteredStudents.forEach((student) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${student.id.slice(-5)}</td>
+            <td>#${String(student.id).slice(-4)}</td>
             <td><strong>${student.name}</strong></td>
             <td>Full-Stack Web</td>
             <td>${student.email}</td>
             <td>${student.attendance}%</td>
             <td><span class="status-badge ${student.status.toLowerCase()}">${student.status}</span></td>
             <td>
-                <button class="btn-edit" onclick="editStudentTrigger('${student.id}')" style="margin-right:5px; cursor:pointer;">Edit</button>
-                <button class="btn-delete" onclick="deleteStudentTrigger('${student.id}')" style="cursor:pointer; color:red;">Delete</button>
+                <button class="btn-edit" onclick="editStudentTrigger('${String(student.id)}')">Edit</button>
+                <button class="btn-delete" onclick="deleteStudentTrigger('${String(student.id)}')">Delete</button>
             </td>
         `;
         tableBody.appendChild(row);
