@@ -28,67 +28,61 @@
             <h2>Registered Student Records</h2>
             <h2>Student List</h2>
 
-<table border="1" cellpadding="10" cellspacing="0" width="100%">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Course</th>
-        <th>Status</th>
-    </tr>
+            <!-- 1. Search, Filter aur Sort ke liye Controls -->
+            <div class="table-controls" style="margin-bottom: 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <div>
+                    <label for="search-student"><strong>Search:</strong> </label>
+                    <input type="text" id="search-student" placeholder="Name ya Email se dhoondhein..." style="padding: 5px; width: 220px;">
+                </div>
 
-    <tr>
-        <td>101</td>
-        <td>Jatin</td>
-        <td>jatin@gmail.com</td>
-        <td>B.Tech CST</td>
-        <td>Active</td>
-    </tr>
+                <div>
+                    <label for="filter-status"><strong>Filter by Status:</strong> </label>
+                    <select id="filter-status" style="padding: 5px;">
+                        <option value="">All Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                </div>
 
-    <tr>
-        <td>102</td>
-        <td>Rahul</td>
-        <td>rahul@gmail.com</td>
-        <td>B.Tech CSE</td>
-        <td>Completed</td>
-    </tr>
-
-    <tr>
-        <td>103</td>
-        <td>Priya</td>
-        <td>priya@gmail.com</td>
-        <td>BCA</td>
-        <td>Active</td>
-    </tr>
-</table>
-
-<!-- Search, Filter aur Sort ke liye Controls -->
-        <div class="table-controls" style="margin-bottom: 15px; display: flex; gap: 10px; align-items: center;">
-            <div>
-                <label for="search-student">Search: </label>
-                <input type="text" id="search-student" placeholder="Name ya Email se dhoondhein...">
+                <div>
+                    <label for="sort-students"><strong>Sort By:</strong> </label>
+                    <select id="sort-students" style="padding: 5px;">
+                        <option value="">Default</option>
+                        <option value="name">Name (A-Z)</option>
+                        <option value="attendance">Attendance (High-Low)</option>
+                        <option value="performance">Performance (High-Low)</option>
+                    </select>
+                </div>
             </div>
 
-            <div>
-                <label for="filter-status">Filter by Status: </label>
-                <select id="filter-status">
-                    <option value="">All Status</option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
-                    <option value="Pending">Pending</option>
-                </select>
-            </div>
+            <!-- 2. Main Dynamic Table -->
+            <table border="1" cellpadding="8" cellspacing="0" width="100%">
+                <caption><strong>Active Interns Database (Batch 2026)</strong></caption>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>Domain Track</th>
+                        <th>Contact Email</th>
+                        <th>Attendance (%)</th>
+                        <th>Performance Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                
+                <tbody id="student-table-body">
+                    <!-- JavaScript dynamic rows yahan fill karega -->
+                </tbody>
 
-            <div>
-                <label for="sort-students">Sort By: </label>
-                <select id="sort-students">
-                    <option value="">Default</option>
-                    <option value="name">Name (A-Z)</option>
-                    <option value="attendance">Attendance (High-Low)</option>
-                    <option value="performance">Performance (High-Low)</option>
-                </select>
-            </div>
-        </div>
+                <tfoot>
+                    <tr>
+                        <td colspan="5"><strong>Total Active Interns Count:</strong> <span id="active-students-count">0</span></td>
+                        <td colspan="2" align="center"><strong><span id="total-students-count">0</span> Students Enrolled</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
         
             <!-- STUDENT RECORDS TABLE -->
             <table border="1" cellpadding="8" cellspacing="0" width="100%">
