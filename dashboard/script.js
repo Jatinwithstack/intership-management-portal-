@@ -1110,3 +1110,248 @@ document.addEventListener('DOMContentLoaded', function() {
     // Counters ko update karega
     updateDashboardCounters();
 });
+
+// ====== NAYA PAGINATION & TABLE CODE (SAFE VERSION) ======
+const myNewCardsContainer = document.getElementById('cards-container');
+const myNewSearchInput = document.getElementById('search-input'); 
+const myNewGenderFilter = document.getElementById('gender-filter');
+const myNewTableBody = document.getElementById('student-table-body');
+const myNewBtnPrev = document.getElementById('btn-prev');
+const myNewBtnNext = document.getElementById('btn-next');
+const myNewPaginationInfo = document.getElementById('pagination-info');
+
+let pagedUsersList = []; 
+let filteredUsersList = []; 
+let currentTablePage = 1;
+const tableRowsPerPage = 5; 
+
+async function startNewTableFetch() {
+    try {
+        if(myNewTableBody) myNewTableBody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-gray-500">Loading data...</td></tr>`;
+        const res = await fetch('https://dummyjson.com/users?limit=30'); 
+        if (!res.ok) return;
+        const data = await res.json();
+        pagedUsersList = data.users; 
+        filteredUsersList = [...pagedUsersList]; 
+        
+        // Niche wale naye functions chalenge
+        renderNewStats(pagedUsersList);
+        renderNewCards(pagedUsersList.slice(0, 8)); 
+        renderNewTableData(); 
+    } catch (e) { console.log(e); }
+}
+
+function renderNewStats(users) {
+    const t = document.getElementById('db-total-students');
+    const a = document.getElementById('db-active-students') || document.getElementById('db-active-interns');
+    const p = document.getElementById('db-pending-tasks');
+    const c = document.getElementById('db-completed-tasks');
+    const m = users.filter(u => u.gender === 'male').length;
+    const f = users.filter(u => u.gender === 'female').length;
+    if (t) t.innerText = users.length;
+    if (a) a.innerText = m;
+    if (p) p.innerText = Math.floor(f / 2);
+    if (c) c.innerText = Math.ceil(f / 2);
+}
+
+function renderNewCards(users) {
+    if (!myNewCardsContainer) return;
+    myNewCardsContainer.innerHTML = ''; 
+    users.forEach(u => {
+        const div = document.createElement('div');
+        div.className = "bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center transition-all hover:shadow-md";
+        div.innerHTML = `
+            <img src="${u.image}" alt="${u.firstName}" class="w-20 h-20 rounded-full bg-gray-100 mb-4 border-2 border-indigo-500 p-1">
+            <h3 class="text-lg font-bold text-gray-800 dark:text-white">${u.firstName} ${u.lastName}</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">${u.email}</p>
+            <div class="mt-4 flex gap-4 text-xs font-medium text-gray-600 dark:text-gray-300">
+                <span><strong>Age:</strong> ${u.age}</span>
+                <span><strong>Gender:</strong> ${u.gender.toUpperCase()}</span>
+            </div>
+        `;
+        myNewCardsContainer.appendChild(div);
+    });
+}
+
+function renderNewTableData() {
+    if (!myNewTableBody) return;
+    myNewTableBody.innerHTML = '';
+    const s = (currentTablePage - 1) * tableRowsPerPage;
+    const e = s + tableRowsPerPage;
+    const items = filteredUsersList.slice(s, e);
+    const total = Math.ceil(filteredUsersList.length / tableRowsPerPage) || 1;
+
+    items.forEach(u => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors border-b border-gray-100 dark:border-gray-700";
+        const badge = u.gender === 'male' 
+            ? '<span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Active</span>'
+            : '<span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-800">Pending</span>';
+        tr.innerHTML = `
+            <td class="px-4 py-3 text-sm font-medium text-gray-900 dark:text-white">${u.firstName} ${u.lastName}</td>
+            <td class="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">${u.email}</td>
+            <td class="px-4 py-3 text-sm text-gray-500 dark:text-gray-400">Web Development</td>
+            <td class="px-4 py-3 text-sm">${badge}</td>
+            <td class="px-4 py-3 text-sm"><button class="text-indigo-600 hover:text-indigo-900 font-medium">Edit</button></td>
+        `;
+        myNewTableBody.appendChild(tr);
+    });
+    if (myNewPaginationInfo) myNewPaginationInfo.innerText = `Showing page ${currentTablePage} of ${total}`;
+    if (myNewBtnPrev) myNewBtnPrev.disabled = currentTablePage === 1;
+    if (myNewBtnNext) myNewBtnNext.disabled = currentTablePage === total;
+}
+
+function handleSearchFilterCombined() {
+    const term = myNewSearchInput ? myNewSearchInput.value.toLowerCase() : '';
+    const gen = myNewGenderFilter ? myNewGenderFilter.value : 'all';
+    filteredUsersList = pagedUsersList.filter(u => {
+        const name = `${u.firstName} ${u.lastName}`.toLowerCase();
+        return (name.includes(term) || u.email.toLowerCase().includes(term)) && (gen === 'all' || u.gender === gen);
+    });
+    currentTablePage = 1; 
+    renderNewCards(filteredUsersList.slice(0, 8)); 
+    renderNewTableData(); 
+}
+
+if (myNewBtnPrev) myNewBtnPrev.addEventListener('click', () => { if (currentTablePage > 1) { currentTablePage--; renderNewTableData(); } });
+if (myNewBtnNext) myNewBtnNext.addEventListener('click', () => { if (currentTablePage < Math.ceil(filteredUsersList.length / tableRowsPerPage)) { currentTablePage++; renderNewTableData(); } });
+if (myNewSearchInput) myNewSearchInput.addEventListener('input', handleSearchFilterCombined);
+if (myNewGenderFilter) myNewGenderFilter.addEventListener('change', handleSearchFilterCombined);
+
+// Start
+startNewTableFetch();
+
+// ====== REGISTRATION FORM HANDLING ======
+const myRegForm = document.getElementById('registration-form');
+const myRegName = document.getElementById('reg-name');
+const myRegEmail = document.getElementById('reg-email');
+
+if (myRegForm) {
+    myRegForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Page reload hone se rokega
+
+        const fullName = myRegName ? myRegName.value.trim() : '';
+        const email = myRegEmail ? myRegEmail.value.trim() : '';
+
+        if (!fullName || !email) {
+            alert('Kripya Name aur Email sahi se bharein!');
+            return;
+        }
+
+        // Name ko todna
+        const nameParts = fullName.split(' ');
+        const firstName = nameParts[0];
+        const lastName = nameParts.slice(1).join(' ') || '';
+
+        // Naya Student Object
+        const newStudent = {
+            id: Date.now(),
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            gender: 'male', // Default status active ke liye
+            age: 20
+        };
+
+        // Table ke start (top) par add karna
+        pagedUsersList.unshift(newStudent);
+        filteredUsersList = [...pagedUsersList];
+
+        // UI Refresh karna
+        renderNewTableData();
+        renderNewStats(pagedUsersList);
+
+        // Form khali karna
+        myRegForm.reset();
+
+        alert(`Student ${fullName} successfully register ho gaya!`);
+    });
+}
+
+function switchTab(tabId) {
+    const sectionIds = ['dashboard', 'students', 'reports', 'tasks', 'attendance', 'projects', 'certificates', 'settings'];
+    
+    sectionIds.forEach(id => {
+        const element = document.getElementById(id + '-section');
+        if (element) {
+            element.classList.add('hidden');
+            element.style.setProperty('display', 'none', 'important'); // Pura chhipane ke liye
+        }
+    });
+
+    const targetSection = document.getElementById(tabId + '-section');
+    if (targetSection) {
+        targetSection.classList.remove('hidden');
+        // display formatting fix
+        if (tabId === 'dashboard') {
+            targetSection.style.setProperty('display', 'flex', 'important');
+        } else {
+            targetSection.style.setProperty('display', 'block', 'important');
+        }
+    }
+
+    // Sidebar text colors refresh
+    const allNavButtons = document.querySelectorAll('.nav-btn');
+    allNavButtons.forEach(btn => {
+        btn.classList.remove('bg-indigo-600', 'text-white');
+    });
+
+    const currentActiveBtn = document.getElementById('btn-' + tabId);
+    if (currentActiveBtn) {
+        currentActiveBtn.classList.add('bg-indigo-600', 'text-white');
+    }
+}
+window.switchTab = switchTab;
+
+// ====== USER PROFILE SECTION DYNAMIC UPDATE ======
+function updateUserProfile() {
+    // Agar hume API se koi random user name dikhana ho ya dummy name dynamic karna ho
+    const profileNameEl = document.getElementById('user-profile-name') || document.querySelector('.flex.items-center .font-semibold');
+    
+    if (profileNameEl) {
+        // Aapka naam 'Jatin' list ke mutabik live update kar dega
+        profileNameEl.innerText = "Jatin Sharma"; 
+    }
+}
+// Run on load
+updateUserProfile();
+
+// ====== REPORTS DATA DYNAMIC UPDATE (FIXED VERSION) ======
+function updateReportsSection() {
+    const reportTotalStudents = document.getElementById('report-total-students');
+    const reportTotalProjects = document.getElementById('report-total-projects');
+    const reportTotalTasks = document.getElementById('report-total-tasks');
+
+    // Aapke main functions mein se data list nikalna (jo bhi available ho)
+    let finalUsers = [];
+    if (typeof pagedUsersList !== 'undefined' && pagedUsersList.length > 0) {
+        finalUsers = pagedUsersList;
+    } else if (typeof filteredUsersList !== 'undefined' && filteredUsersList.length > 0) {
+        finalUsers = filteredUsersList;
+    } else if (typeof allUsersList !== 'undefined' && allUsersList.length > 0) {
+        finalUsers = allUsersList;
+    }
+
+    const totalCount = finalUsers.length || 30; // Agar empty ho toh default fallback 30
+    const activeProjects = Math.floor(totalCount / 4) || 7;
+    const pendingTasks = Math.floor(totalCount / 6) || 5;
+
+    // Numbers ko UI par inject karna
+    if (reportTotalStudents) reportTotalStudents.innerText = totalCount;
+    if (reportTotalProjects) reportTotalProjects.innerText = activeProjects;
+    if (reportTotalTasks) reportTotalTasks.innerText = pendingTasks;
+}
+
+// 1. Jab bhi tab switch ho, reports ka data live calculate ho
+const originalTabSwitch = window.switchTab;
+window.switchTab = function(tabId) {
+    if (typeof originalTabSwitch === 'function') {
+        originalTabSwitch(tabId);
+    }
+    if (tabId === 'reports') {
+        updateReportsSection();
+    }
+};
+
+// 2. Initial load par chalane ke liye ek safety hit
+setTimeout(updateReportsSection, 1500);
