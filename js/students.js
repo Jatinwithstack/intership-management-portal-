@@ -91,6 +91,19 @@ function renderStudentTable() {
     // Load from your 'students' localStorage key
     let studentList = JSON.parse(localStorage.getItem('students')) || [];
 
+    // Update dynamic counter badges
+    const allRecords = JSON.parse(localStorage.getItem('students')) || [];
+    const activeInterns = allRecords.filter(s => 
+        (s.status && s.status.toLowerCase() === 'active') || 
+        (s.performanceStatus && s.performanceStatus.toLowerCase() === 'active')
+    ).length;
+
+    const activeEl = document.getElementById('totalActiveCount');
+    const totalEl = document.getElementById('totalEnrolledCount');
+
+    if (activeEl) activeEl.innerText = activeInterns;
+    if (totalEl) totalEl.innerText = allRecords.length;
+    
     // 1. Search Filter
     const searchVal = document.getElementById('searchInput')?.value.toLowerCase().trim() || '';
     if (searchVal) {
