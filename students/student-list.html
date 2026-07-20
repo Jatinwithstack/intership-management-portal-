@@ -56,6 +56,21 @@
                         <option value="attendance">Attendance (High-Low)</option>
                         <option value="performance">Performance (High-Low)</option>
                     </select>
+                    <!-- Data Controls (Export/Import) & Loading Spinner -->
+        <div style="display: flex; gap: 10px; align-items: center; margin-top: 10px;">
+          <button onclick="exportJSON()" style="background-color: #2563eb; color: white; padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer;">Export JSON</button>
+          
+          <label style="background-color: #059669; color: white; padding: 6px 12px; border-radius: 6px; cursor: pointer; display: inline-block;">
+            Import JSON
+            <input type="file" id="importJsonInput" accept=".json" style="display: none;" onchange="importJSON(event)">
+          </label>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" style="display: none; margin-top: 10px; text-align: center;">
+          <div style="display: inline-block; width: 24px; height: 24px; border: 3px solid #4f46e5; border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+          <p style="font-size: 12px; color: #64748b; margin-top: 4px;">Processing JSON data...</p>
+        </div>
                 </div>
             </div>
 

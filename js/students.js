@@ -175,3 +175,52 @@ document.addEventListener('DOMContentLoaded', () => {
         renderStudentTable();
     });
 });
+
+// Toggle Spinner
+function toggleSpinner(show) {
+    const spinner = document.getElementById('loadingSpinner');
+    if (spinner) {
+        spinner.style.display = show ? 'block' : 'none';
+    }
+}
+
+// Export JSON
+function exportJSON() {
+    const data = JSON.parse(localStorage.getItem('students')) || [];
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+    const dlAnchor = document.createElement('a');
+    dlAnchor.setAttribute("href", dataStr);
+    dlAnchor.setAttribute("download", "student_data.json");
+    dlAnchor.click();
+    if (typeof showToast === 'function') showToast("Data exported successfully!");
+}
+
+// Import JSON Function
+function importJSON(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    toggleSpinner(true);
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const importedData = JSON.parse(e.target.result);
+            if (Array.isArray(importedData)) {
+                localStorage.setItem('students', JSON.stringify(importedData));
+                setTimeout(() => {
+                    toggleSpinner(false);
+                    if (typeof showToast === 'function') showToast("Data imported successfully!");
+                    if (typeof renderStudentTable === 'function') renderStudentTable();
+                }, 600);
+            } else {
+                alert("Invalid JSON format! Must be an array.");
+                toggleSpinner(false);
+            }
+        } catch (err) {
+            alert("Error reading JSON file!");
+            toggleSpinner(false);
+        }
+    };
+    reader.readAsText(file);
+}
