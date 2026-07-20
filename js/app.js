@@ -146,4 +146,62 @@ document.addEventListener('DOMContentLoaded', () => {
             renderStudentTable(searchInput?.value, statusFilter?.value, e.target.value);
         });
     }
+}); 
+
+// Dummy data setup if local storage is empty
+function setupInitialData() {
+    const existingUsers = localStorage.getItem('users');
+    
+    if (!existingUsers) {
+        const defaultUsers = [
+            { email: "admin@portal.com", pass: "admin123", role: "admin", name: "Admin" },
+            { email: "student@portal.com", pass: "student123", role: "student", name: "Rahul Sharma" }
+        ];
+        localStorage.setItem('users', JSON.stringify(defaultUsers));
+    }
+}
+
+// Handle login submit
+function loginUser(email, password) {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    
+    const foundUser = users.find(u => u.email === email && u.pass === password);
+
+    if (foundUser) {
+        // Save logged in user details
+        const sessionData = {
+            email: foundUser.email,
+            role: foundUser.role,
+            name: foundUser.name
+        };
+        localStorage.setItem('activeUser', JSON.stringify(sessionData));
+        
+        alert("Login successful!");
+        
+        // Redirect logic
+        if (foundUser.role === 'admin') {
+            window.location.href = 'dashboard/index.html';
+        } else {
+            window.location.href = 'students/student-list.html';
+        }
+    } else {
+        alert("Invalid email or password");
+    }
+}
+
+// Logout function
+function logoutUser() {
+    localStorage.removeItem('activeUser');
+    window.location.href = '../home.html';
+}
+
+// Check session on page load
+function checkUserSession() {
+    const activeUser = JSON.parse(localStorage.getItem('activeUser'));
+    return activeUser;
+}
+
+// App startup
+document.addEventListener('DOMContentLoaded', () => {
+    setupInitialData();
 });
